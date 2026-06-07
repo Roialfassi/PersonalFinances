@@ -1,67 +1,68 @@
 /* =========================================================================
-   SALARY BUDGET SPLITTER — "Paper Treasury"
-   A warm ivory ledger. Rich gold is the signature; emerald marks healthy
-   money. Editorial serif display (Fraunces), warm grotesque UI (Hanken
-   Grotesk), tabular mono figures (JetBrains Mono).
+   SALARY BUDGET SPLITTER — "Treasury Ledger"
+   A warm paper ledger. Indigo is the signature accent; emerald marks
+   healthy money; near-black ink carries the primary actions. Geometric
+   sans display (Space Grotesk) over a clean UI sans (Inter), with tabular
+   figures. Shares the palette of the Rent-vs-Buy calculator.
    ========================================================================= */
 
 :root {
   color-scheme: light;
 
-  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
-  --font-ui: "Hanken Grotesk", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Space Grotesk", "Inter", system-ui, sans-serif;
 
-  /* Canvas + surfaces */
-  --bg-0: #ece5d6;
-  --bg-1: #f5f1e7;
-  --panel: #fffdf7;
-  --panel-2: #fbf7ed;
-  --panel-3: #f2ecdd;
-  --panel-glass: rgba(255, 253, 247, 0.78);
+  /* Canvas + surfaces — warm paper */
+  --bg-0: #ece6da;
+  --bg-1: #f3f0e8;
+  --panel: #fffdf8;
+  --panel-2: #faf7ef;
+  --panel-3: #f0ebdf;
+  --panel-glass: rgba(243, 240, 232, 0.82);
 
   /* Hairlines */
-  --line: rgba(46, 42, 30, 0.12);
-  --line-strong: rgba(46, 42, 30, 0.2);
-  --line-gold: rgba(176, 124, 42, 0.42);
+  --line: #e7e0d3;
+  --line-strong: #c8bfac;
+  --line-gold: #d9d8fb;
 
   /* Ink */
-  --ink: #211f17;
-  --ink-soft: #56564a;
-  --ink-mute: #8a8775;
+  --ink: #211f1b;
+  --ink-soft: #6a655b;
+  --ink-mute: #9b9488;
 
-  /* Signature gold */
-  --gold: #b07c2a;        /* text / icons on light */
-  --gold-bright: #e3b756; /* fills / accents */
-  --gold-deep: #8a5f1c;   /* strong / hover */
-  --gold-glow: rgba(200, 150, 60, 0.4);
+  /* Signature accent — indigo */
+  --gold: #4f46e5;        /* text / icons on light */
+  --gold-bright: #6366f1; /* fills / accents */
+  --gold-deep: #4338ca;   /* strong / hover */
+  --gold-glow: rgba(79, 70, 229, 0.28);
 
   /* Emerald — positive / saved */
-  --mint: #2fbe8d;
-  --mint-deep: #0f9168;
+  --mint: #0e9f6e;
+  --mint-deep: #0b7d57;
 
   /* States */
-  --warn: #b07d18;
-  --warn-soft: #fbf0d2;
-  --danger: #cf4b3b;
-  --danger-soft: #fae3df;
-  --success: #0f9168;
-  --success-soft: #dcf4ea;
-  --info: #3b6fd4;
+  --warn: #bd6f0a;
+  --warn-soft: #f8ecd6;
+  --danger: #b4322c;
+  --danger-soft: #fbe6e3;
+  --success: #0b7d57;
+  --success-soft: #e1f4e9;
+  --info: #4f46e5;
 
   /* Per-group accents */
-  --g-savings: #16a777;
-  --g-essentials: #3b6fd4;
-  --g-lifestyle: #c4912f;
-  --g-debt: #d4544a;
+  --g-savings: #0e9f6e;
+  --g-essentials: #4f46e5;
+  --g-lifestyle: #bd6f0a;
+  --g-debt: #b4322c;
   --g-giving: #7c5ed6;
-  --g-misc: #6f7d74;
+  --g-misc: #6a655b;
 
-  /* Elevation */
-  --shadow: 0 24px 50px -30px rgba(46, 42, 30, 0.32), 0 4px 14px -10px rgba(46, 42, 30, 0.18);
-  --shadow-soft: 0 12px 30px -24px rgba(46, 42, 30, 0.26);
-  --radius: 16px;
-  --radius-sm: 11px;
+  /* Elevation — warm, soft, low */
+  --shadow: 0 2px 6px rgba(40, 30, 12, 0.06), 0 22px 48px -26px rgba(40, 30, 12, 0.32);
+  --shadow-soft: 0 1px 2px rgba(40, 30, 12, 0.05), 0 6px 18px -10px rgba(40, 30, 12, 0.2);
+  --radius: 14px;
+  --radius-sm: 10px;
 
   font-family: var(--font-ui);
   color: var(--ink);
@@ -82,12 +83,7 @@ body {
   margin: 0;
   min-width: 320px;
   color: var(--ink);
-  background:
-    radial-gradient(1100px 600px at 10% -10%, rgba(227, 183, 86, 0.2), transparent 58%),
-    radial-gradient(1000px 680px at 100% 4%, rgba(47, 190, 141, 0.12), transparent 56%),
-    radial-gradient(900px 880px at 92% 118%, rgba(59, 111, 212, 0.08), transparent 60%),
-    linear-gradient(180deg, var(--bg-1), var(--bg-0));
-  background-attachment: fixed;
+  background: var(--bg-1);
 }
 
 /* Fine grain overlay for paper texture */
@@ -97,13 +93,13 @@ body::before {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.04;
+  opacity: 0.02;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 ::selection {
-  background: rgba(200, 150, 60, 0.26);
+  background: rgba(79, 70, 229, 0.26);
   color: var(--ink);
 }
 
@@ -165,7 +161,7 @@ p {
   justify-content: space-between;
   gap: 16px;
   padding: 13px clamp(16px, 4vw, 36px);
-  background: linear-gradient(180deg, rgba(255, 253, 247, 0.9), rgba(255, 253, 247, 0.62));
+  background: linear-gradient(180deg, rgba(255, 253, 248, 0.9), rgba(255, 253, 248, 0.62));
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(20px) saturate(140%);
   position: sticky;
@@ -187,12 +183,10 @@ p {
   width: 44px;
   height: 44px;
   flex: 0 0 auto;
-  color: #2b1d06;
+  color: var(--gold);
   border-radius: 13px;
-  background: radial-gradient(120% 120% at 30% 20%, var(--gold-bright), var(--gold) 55%, var(--gold-deep));
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.4) inset,
-    0 8px 20px -8px var(--gold-glow);
+  background: rgba(99, 102, 241, 0.12);
+  box-shadow: 0 0 0 1px var(--line-gold) inset;
 }
 
 .brand-mark::after {
@@ -288,21 +282,21 @@ p {
 }
 
 .text-command:hover {
-  background: rgba(200, 150, 60, 0.12);
+  background: rgba(79, 70, 229, 0.12);
   transform: none;
 }
 
 .command.primary {
-  color: #2b1d06;
+  color: var(--bg-1);
   border-color: transparent;
-  background: linear-gradient(135deg, var(--gold-bright), var(--gold) 60%, var(--gold-deep));
-  box-shadow: 0 10px 24px -12px var(--gold-glow), 0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+  background: var(--ink);
+  box-shadow: var(--shadow-soft);
 }
 
 .command.primary:hover {
-  filter: brightness(1.05);
+  background: #2c2925;
   transform: translateY(-1px);
-  box-shadow: 0 14px 30px -12px var(--gold-glow), 0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+  box-shadow: var(--shadow);
 }
 
 .danger-text,
@@ -405,6 +399,7 @@ p {
   border-radius: var(--radius);
   background: linear-gradient(170deg, var(--panel), var(--panel-2));
   box-shadow: var(--shadow);
+  transition: color 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
   animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
@@ -420,6 +415,7 @@ p {
   width: 4px;
   border-radius: 4px;
   background: var(--gold);
+  transition: background-color 240ms ease;
 }
 
 .kpi-card::after {
@@ -430,19 +426,19 @@ p {
   background: radial-gradient(130% 90% at 100% 100%, rgba(46, 42, 30, 0.045), transparent 58%);
 }
 
-/* Income = the gold hero */
+/* Income = the indigo hero */
 .kpi-card.income {
-  color: #2b1d06;
-  background: radial-gradient(130% 130% at 16% 10%, var(--gold-bright), var(--gold) 52%, var(--gold-deep));
-  border-color: rgba(255, 255, 255, 0.32);
-  box-shadow: 0 22px 50px -26px var(--gold-glow), var(--shadow);
+  color: var(--ink);
+  background: linear-gradient(180deg, rgba(99, 102, 241, 0.1), var(--panel));
+  border-color: var(--line-gold);
+  box-shadow: var(--shadow);
 }
 
 .kpi-card.income::before {
-  background: rgba(43, 29, 6, 0.5);
+  background: var(--gold);
 }
 
-.kpi-card.assigned::before { background: var(--g-lifestyle); }
+.kpi-card.assigned::before { background: var(--gold); }
 .kpi-card.savings::before { background: var(--mint-deep); }
 .kpi-card.balance.warning::before { background: var(--warn); }
 .kpi-card.balance.success::before { background: var(--success); }
@@ -469,6 +465,7 @@ p {
 
 .kpi-card.income strong {
   font-size: 2rem;
+  color: var(--gold-deep);
 }
 
 .kpi-card em {
@@ -482,16 +479,16 @@ p {
 
 .kpi-card.income > span,
 .kpi-card.income em {
-  color: color-mix(in srgb, var(--gold-deep) 64%, #140d02);
+  color: var(--ink-soft);
 }
 
 .kpi-card.income .money-pair,
 .kpi-card.income .money-pair strong {
-  color: #2b1d06;
+  color: var(--gold-deep);
 }
 
 .kpi-card.income .money-pair small {
-  color: color-mix(in srgb, var(--gold-deep) 58%, #140d02);
+  color: var(--ink-mute);
 }
 
 .money-pair {
@@ -656,16 +653,16 @@ p {
 /* active step */
 .step-panel.open .step-trigger {
   border-color: var(--line-gold);
-  background: linear-gradient(180deg, rgba(227, 183, 86, 0.16), rgba(227, 183, 86, 0.04)), #fff;
+  background: linear-gradient(180deg, rgba(99, 102, 241, 0.16), rgba(99, 102, 241, 0.04)), #fff;
   box-shadow: 0 16px 34px -22px var(--gold-glow), 0 0 0 1px var(--line-gold) inset;
   transform: translateX(3px);
 }
 
 .step-panel.open .step-number {
-  color: #2b1d06;
-  background: radial-gradient(120% 120% at 30% 20%, var(--gold-bright), var(--gold) 58%, var(--gold-deep));
+  color: var(--bg-1);
+  background: var(--ink);
   border-color: transparent;
-  box-shadow: 0 0 0 4px rgba(227, 183, 86, 0.22), 0 6px 16px -6px var(--gold-glow);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2), 0 6px 16px -6px var(--gold-glow);
   animation: medallion 2.8s ease-in-out infinite;
 }
 
@@ -689,12 +686,14 @@ p {
   border-radius: calc(var(--radius) + 4px);
   background: linear-gradient(180deg, var(--panel), var(--panel-2));
   box-shadow: var(--shadow);
-  animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  animation-delay: 0.3s;
 }
 
 .step-panel:not(.open) .step-body {
   display: none;
+}
+
+.step-panel.open .step-body {
+  animation: stepIn 0.34s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
 .step-actions {
@@ -760,7 +759,7 @@ select {
   appearance: none;
   -webkit-appearance: none;
   padding-right: 38px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238a5f1c' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234f46e5' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 13px center;
 }
@@ -775,7 +774,7 @@ select:focus,
 button:focus-visible,
 summary:focus-visible {
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(200, 150, 60, 0.24);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.24);
 }
 
 input[type="range"] {
@@ -796,7 +795,7 @@ input[type="range"] {
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--gold-deep);
-  background: linear-gradient(180deg, rgba(227, 183, 86, 0.1), transparent), #fff;
+  background: linear-gradient(180deg, rgba(99, 102, 241, 0.1), transparent), #fff;
 }
 
 .quick-income-row {
@@ -822,7 +821,7 @@ input[type="range"] {
 .quick-income-row button:hover {
   color: var(--gold-deep);
   border-color: var(--line-gold);
-  background: rgba(227, 183, 86, 0.14);
+  background: rgba(99, 102, 241, 0.14);
   transform: translateY(-1px);
 }
 
@@ -863,7 +862,7 @@ input[type="range"] {
 }
 
 .more-options summary:hover {
-  background: rgba(227, 183, 86, 0.14);
+  background: rgba(99, 102, 241, 0.14);
 }
 
 .more-options-body {
@@ -897,9 +896,9 @@ input[type="range"] {
 }
 
 .segmented-control button.active {
-  color: #2b1d06;
-  background: linear-gradient(135deg, var(--gold-bright), var(--gold));
-  box-shadow: 0 6px 14px -8px var(--gold-glow);
+  color: var(--bg-1);
+  background: var(--ink);
+  box-shadow: var(--shadow-soft);
 }
 
 .range-input {
@@ -940,7 +939,7 @@ input[type="range"] {
   border: 1px solid var(--line);
   border-left: 3px solid var(--gold);
   border-radius: var(--radius-sm);
-  background: linear-gradient(120deg, rgba(227, 183, 86, 0.12), transparent 70%), var(--panel-2);
+  background: linear-gradient(120deg, rgba(99, 102, 241, 0.12), transparent 70%), var(--panel-2);
 }
 
 .template-preview strong {
@@ -1048,7 +1047,7 @@ input[type="range"] {
   padding: 12px 16px;
   border: 1px solid var(--line-gold);
   border-radius: var(--radius-sm);
-  background: linear-gradient(100deg, rgba(227, 183, 86, 0.16), rgba(47, 190, 141, 0.08) 80%), var(--panel-2);
+  background: linear-gradient(100deg, rgba(99, 102, 241, 0.16), rgba(47, 190, 141, 0.08) 80%), var(--panel-2);
 }
 
 .suggestion-panel > span {
@@ -1058,13 +1057,13 @@ input[type="range"] {
 }
 
 .suggestion-panel .command {
-  background: rgba(227, 183, 86, 0.18);
+  background: rgba(99, 102, 241, 0.18);
   border-color: var(--line-gold);
   color: var(--gold-deep);
 }
 
 .suggestion-panel .command:hover {
-  background: rgba(227, 183, 86, 0.28);
+  background: rgba(99, 102, 241, 0.28);
 }
 
 /* =========================================================================
@@ -1082,6 +1081,7 @@ input[type="range"] {
   font-weight: 750;
   white-space: nowrap;
   border: 1px solid transparent;
+  transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease;
 }
 
 .status-pill::before {
@@ -1111,7 +1111,7 @@ input[type="range"] {
 }
 
 .fix-command {
-  background: rgba(227, 183, 86, 0.18);
+  background: rgba(99, 102, 241, 0.18);
   border-color: var(--line-gold);
   color: var(--gold-deep);
 }
@@ -1133,7 +1133,7 @@ input[type="range"] {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--warn), var(--gold-bright));
+  background: linear-gradient(90deg, var(--gold-deep), var(--gold-bright));
   transition: width 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
@@ -1186,7 +1186,7 @@ input[type="range"] {
 
 .fix-row .command {
   border-color: var(--line-gold);
-  background: rgba(227, 183, 86, 0.12);
+  background: rgba(99, 102, 241, 0.12);
   color: var(--gold-deep);
 }
 
@@ -1220,6 +1220,7 @@ input[type="range"] {
   background: linear-gradient(180deg, var(--panel), var(--panel-2));
   box-shadow: var(--shadow-soft);
   transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+  animation: cardIn 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
 }
 
 .category-card::before {
@@ -1235,6 +1236,12 @@ input[type="range"] {
   border-color: var(--line-strong);
   box-shadow: var(--shadow);
 }
+
+.two-column-list .category-card:nth-child(1) { animation-delay: 0.04s; }
+.two-column-list .category-card:nth-child(2) { animation-delay: 0.08s; }
+.two-column-list .category-card:nth-child(3) { animation-delay: 0.12s; }
+.two-column-list .category-card:nth-child(4) { animation-delay: 0.16s; }
+.two-column-list .category-card:nth-child(n + 5) { animation-delay: 0.2s; }
 
 .category-card[data-group="savings"] { --row-accent: var(--g-savings); }
 .category-card[data-group="essentials"] { --row-accent: var(--g-essentials); }
@@ -1354,7 +1361,7 @@ input[type="range"] {
 }
 
 .percent-stepper button:hover {
-  background: rgba(227, 183, 86, 0.2);
+  background: rgba(99, 102, 241, 0.2);
   border-color: var(--line-gold);
 }
 
@@ -1553,12 +1560,34 @@ input[type="range"] {
   }
 }
 
+@keyframes stepIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes medallion {
   0%, 100% {
-    box-shadow: 0 0 0 4px rgba(227, 183, 86, 0.22), 0 6px 16px -6px var(--gold-glow);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.22), 0 6px 16px -6px var(--gold-glow);
   }
   50% {
-    box-shadow: 0 0 0 6px rgba(227, 183, 86, 0.12), 0 8px 22px -4px var(--gold-glow);
+    box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.12), 0 8px 22px -4px var(--gold-glow);
   }
 }
 
@@ -1749,6 +1778,7 @@ input[type="range"] {
     background: #fff !important;
     border: 1px solid #ccc;
     box-shadow: none;
+    animation: none;
   }
 
   .step-stack {
