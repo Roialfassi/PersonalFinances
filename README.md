@@ -61,6 +61,22 @@ Preview the production build:
 npm run preview
 ```
 
+## GitHub Pages
+
+This repo is configured to deploy with GitHub Actions from the `master` branch.
+The workflow builds the Vite app, runs tests, uploads `dist`, and deploys it to
+GitHub Pages.
+
+In GitHub, open **Settings > Pages** and set **Build and deployment > Source** to
+**GitHub Actions**. After the next push to `master`, the site will publish at:
+
+```text
+https://roialfassi.github.io/PersonalFinances/
+```
+
+The Vite base path is set for the `PersonalFinances` repository name. If the repo
+is renamed, update the `build:pages` script in `package.json`.
+
 ## Project Structure
 
 ```text
@@ -79,4 +95,3 @@ src/
 ## Notes
 
 This app stores saved scenarios locally in the browser. It does not connect to bank accounts, store server-side financial data, or provide financial advice.
-
