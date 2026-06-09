@@ -152,6 +152,52 @@ const getGroupRank = (group: CategoryGroup) => {
   return index === -1 ? categoryFlowOrder.length : index;
 };
 
+type StepSectionProps = {
+  id: BudgetStepId;
+  number: number;
+  title: string;
+  summary: string;
+  activeStep: BudgetStepId;
+  onStepChange: (id: BudgetStepId) => void;
+  children: ReactNode;
+};
+
+function StepSection({
+  id,
+  number,
+  title,
+  summary,
+  activeStep,
+  onStepChange,
+  children
+}: StepSectionProps) {
+  const isOpen = activeStep === id;
+  const labelId = `${id}-step-title`;
+  const bodyId = `${id}-step-body`;
+
+  return (
+    <section className={`step-panel ${isOpen ? "open" : ""}`} aria-labelledby={labelId}>
+      <button
+        className="step-trigger"
+        type="button"
+        aria-expanded={isOpen}
+        aria-controls={bodyId}
+        onClick={() => onStepChange(id)}
+      >
+        <span className="step-number">{number}</span>
+        <span className="step-heading">
+          <span id={labelId}>{title}</span>
+          <small>{summary}</small>
+        </span>
+        <ChevronDown className="step-chevron" size={18} aria-hidden="true" />
+      </button>
+      <div className="step-body" id={bodyId} aria-hidden={!isOpen}>
+        {children}
+      </div>
+    </section>
+  );
+}
+
 function App() {
   const initialState = useMemo(getInitialState, []);
   const [scenario, setScenario] = useState<BudgetScenario>(initialState.scenario);
@@ -640,44 +686,6 @@ function App() {
     finish: planState.message
   };
 
-  const StepSection = ({
-    id,
-    number,
-    title,
-    children
-  }: {
-    id: BudgetStepId;
-    number: number;
-    title: string;
-    children: ReactNode;
-  }) => {
-    const isOpen = activeStep === id;
-    const labelId = `${id}-step-title`;
-    const bodyId = `${id}-step-body`;
-
-    return (
-      <section className={`step-panel ${isOpen ? "open" : ""}`} aria-labelledby={labelId}>
-        <button
-          className="step-trigger"
-          type="button"
-          aria-expanded={isOpen}
-          aria-controls={bodyId}
-          onClick={() => setActiveStep(id)}
-        >
-          <span className="step-number">{number}</span>
-          <span className="step-heading">
-            <span id={labelId}>{title}</span>
-            <small>{stepSummaries[id]}</small>
-          </span>
-          <ChevronDown className="step-chevron" size={18} aria-hidden="true" />
-        </button>
-        <div className="step-body" id={bodyId} aria-hidden={!isOpen}>
-          {children}
-        </div>
-      </section>
-    );
-  };
-
   const renderCategoryCard = (category: CategoryOutput) => (
     <article key={category.id} className="category-card" data-group={category.group}>
       <div className="category-info">
@@ -806,7 +814,14 @@ function App() {
         </section>
 
         <div className="step-stack">
-          <StepSection id="pay" number={1} title="Pay and currency">
+          <StepSection
+            id="pay"
+            number={1}
+            title="Pay and currency"
+            summary={stepSummaries.pay}
+            activeStep={activeStep}
+            onStepChange={setActiveStep}
+          >
             <div className="income-grid">
               <label className="field income-field">
                 <span>Your pay</span>
@@ -971,7 +986,14 @@ function App() {
             </div>
           </StepSection>
 
-          <StepSection id="plan" number={2} title="Starting plan">
+          <StepSection
+            id="plan"
+            number={2}
+            title="Starting plan"
+            summary={stepSummaries.plan}
+            activeStep={activeStep}
+            onStepChange={setActiveStep}
+          >
             <label className="field">
               <span>Plan</span>
               <select value={scenario.templateId} onChange={(event) => applyTemplate(event.target.value)}>
@@ -1022,7 +1044,14 @@ function App() {
             </div>
           </StepSection>
 
-          <StepSection id="savings" number={3} title="Save first">
+          <StepSection
+            id="savings"
+            number={3}
+            title="Save first"
+            summary={stepSummaries.savings}
+            activeStep={activeStep}
+            onStepChange={setActiveStep}
+          >
             <div className="flow-strip" aria-label="Savings flow">
               <div>
                 <span>Saved each month</span>
@@ -1090,7 +1119,14 @@ function App() {
             </div>
           </StepSection>
 
-          <StepSection id="expenses" number={4} title="Expenses">
+          <StepSection
+            id="expenses"
+            number={4}
+            title="Expenses"
+            summary={stepSummaries.expenses}
+            activeStep={activeStep}
+            onStepChange={setActiveStep}
+          >
             <div className="budget-header compact">
               <div className="budget-status">
                 <div className={`status-pill ${planState.className}`}>{planState.message}</div>
@@ -1274,7 +1310,14 @@ function App() {
             </div>
           </StepSection>
 
-          <StepSection id="finish" number={5} title="Save and export">
+          <StepSection
+            id="finish"
+            number={5}
+            title="Save and export"
+            summary={stepSummaries.finish}
+            activeStep={activeStep}
+            onStepChange={setActiveStep}
+          >
             <div className="finish-summary-grid" aria-label="Final summary">
               <div>
                 <span>Saved</span>
