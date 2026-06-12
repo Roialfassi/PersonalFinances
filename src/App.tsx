@@ -120,6 +120,7 @@ const createScenario = (templateId = "ramsey-inspired"): BudgetScenario => {
     hoursPerWeek: 40,
     currencyCode: "USD",
     ilsPerUsd: DEFAULT_ILS_PER_USD,
+    hasDebt: true,
     templateId,
     categories: createSuggestedTemplateCategories(templateId),
     notes: "",
@@ -244,6 +245,11 @@ function App() {
     </span>
   );
 
+  const hasDebt = scenario.hasDebt ?? true;
+  const visibleExpenseGroups = expenseGroupOrder.filter((group) => group !== "debt" || hasDebt);
+  const currentExpenseGroup =
+    !hasDebt && activeExpenseGroup === "debt" ? "essentials" : activeExpenseGroup;
+
   const orderedCategories = useMemo(
     () =>
       [...output.categories].sort(
@@ -252,9 +258,11 @@ function App() {
     [output.categories]
   );
   const savingsCategories = orderedCategories.filter((category) => category.group === "savings");
-  const expenseCategories = orderedCategories.filter((category) => category.group !== "savings");
+  const expenseCategories = orderedCategories.filter(
+    (category) => category.group !== "savings" && (hasDebt || category.group !== "debt")
+  );
   const activeExpenseCategories = expenseCategories.filter(
-    (category) => category.group === activeExpenseGroup
+    (category) => category.group === currentExpenseGroup
   );
   const suggestedSavingsPercent = roundCurrency(
     savingsCategories.reduce((total, category) => total + (category.suggestedPercent ?? 0), 0)
@@ -403,10 +411,28 @@ function App() {
         ...current,
         categories: [
           ...current.categories,
-          createCategory(groupLabels[activeExpenseGroup], activeExpenseGroup, 0)
+          createCategory(groupLabels[currentExpenseGroup], currentExpenseGroup, 0)
         ]
       })
     );
+  };
+
+  const updateHasDebt = (nextHasDebt: boolean) => {
+    setScenario((current) =>
+      touchScenario({
+        ...current,
+        hasDebt: nextHasDebt,
+        categories: nextHasDebt
+          ? current.categories
+          : current.categories.map((category) =>
+              category.group === "debt" ? { ...category, percent: 0 } : category
+            )
+      })
+    );
+
+    if (!nextHasDebt && activeExpenseGroup === "debt") {
+      setActiveExpenseGroup("essentials");
+    }
   };
 
   const addRemainingToSavings = () => {
@@ -1155,23 +1181,45 @@ function App() {
               </div>
             )}
 
-            <div className="expense-toolbar">
-              <label className="field">
-                <span>Expense group</span>
-                <select
-                  value={activeExpenseGroup}
-                  onChange={(event) => setActiveExpenseGroup(event.target.value as CategoryGroup)}
+            <div className="debt-question" role="group" aria-label="Do you have debt to pay?">
+              <span>Do you have debt to pay?</span>
+              <div className="segmented-control">
+                <button
+                  className={hasDebt ? "active" : ""}
+                  type="button"
+                  onClick={() => updateHasDebt(true)}
                 >
-                  {expenseGroupOrder.map((group) => (
-                    <option key={group} value={group}>
-                      {groupLabels[group]} - {formatPercent(groupTotals[group] ?? 0)}
-                    </option>
-                  ))}
-                </select>
-              </label>
+                  Yes
+                </button>
+                <button
+                  className={!hasDebt ? "active" : ""}
+                  type="button"
+                  onClick={() => updateHasDebt(false)}
+                >
+                  No
+                </button>
+              </div>
+            </div>
 
+            <div className="expense-tabs" role="tablist" aria-label="Expense groups">
+              {visibleExpenseGroups.map((group) => (
+                <button
+                  key={group}
+                  className={`expense-tab ${group === currentExpenseGroup ? "active" : ""}`}
+                  type="button"
+                  role="tab"
+                  aria-selected={group === currentExpenseGroup}
+                  onClick={() => setActiveExpenseGroup(group)}
+                >
+                  <span>{groupLabels[group]}</span>
+                  <small>{formatPercent(groupTotals[group] ?? 0)}</small>
+                </button>
+              ))}
+            </div>
+
+            <div className="expense-toolbar">
               <div className="toolbar-total">
-                <span>{groupLabels[activeExpenseGroup]} total</span>
+                <span>{groupLabels[currentExpenseGroup]} total</span>
                 {renderMoneyPair(activeExpenseGroupMonthlyAmount)}
               </div>
             </div>
@@ -1185,7 +1233,7 @@ function App() {
                 className="command"
                 type="button"
                 disabled={activeExpenseSuggestedPercent <= 0}
-                onClick={() => applyGroupSuggestions(activeExpenseGroup)}
+                onClick={() => applyGroupSuggestions(currentExpenseGroup)}
               >
                 Use group suggestion
               </button>

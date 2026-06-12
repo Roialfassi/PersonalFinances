@@ -49,6 +49,7 @@ export interface BudgetScenario {
   hoursPerWeek: number;
   currencyCode?: CurrencyCode;
   ilsPerUsd?: number;
+  hasDebt?: boolean;
   templateId: string;
   categories: BudgetCategory[];
   notes: string;

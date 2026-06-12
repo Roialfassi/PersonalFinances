@@ -721,12 +721,74 @@ p {
   gap: 16px;
 }
 
-.currency-grid,
-.expense-toolbar {
+.currency-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
   gap: 16px;
   align-items: end;
+}
+
+.expense-toolbar {
+  display: grid;
+  grid-template-columns: minmax(220px, 300px);
+  justify-content: flex-end;
+  gap: 16px;
+  align-items: end;
+}
+
+.debt-question {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 50px;
+  padding: 10px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--ink);
+  font-weight: 750;
+}
+
+.debt-question .segmented-control {
+  width: 170px;
+}
+
+.expense-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 5px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--bg-0);
+}
+
+.expense-tab {
+  flex: 1 1 auto;
+  display: grid;
+  gap: 2px;
+  justify-items: center;
+  min-height: 48px;
+  padding: 7px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink-mute);
+  font-weight: 750;
+  transition: all 160ms ease;
+}
+
+.expense-tab small {
+  font-weight: 600;
+  font-size: 0.78rem;
+}
+
+.expense-tab.active {
+  color: var(--bg-1);
+  background: var(--ink);
+  box-shadow: var(--shadow-soft);
 }
 
 .solo-field {
